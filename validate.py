@@ -47,7 +47,7 @@ def validate(param, profile):
                 
         else:
             print 'Checking ip,netmask,dns'             
-            val = re.split(r"[[^.]",profile[param]) # Check if alpha characters exist if do return false
+            val = re.split(r"[^.]",profile[param]) # Check if alpha characters exist if do return false
             if val: 
                 for octet in val:
                     if not int(octet)<= 255:
