@@ -15,6 +15,7 @@ import subprocess
 import syslog
 import tempfile
 import time
+import validate # aj added 
 
 class CommotionCore():
 
@@ -76,6 +77,9 @@ class CommotionCore():
         for param in ('ssid', 'channel', 'ip', 'netmask', 'dns', 'ipgenerate'): ##Also validate ip, dns, bssid, channel?
             if param not in profile:
                 self.log('Error in ' + f + ': missing or malformed ' + param + ' option') ## And raise some sort of error?
+	# I need to reposition this     
+	    if not validate(param,profile):
+		self.log('Error in' + f + ': incorrect' + param + 'defined') 
         if profile['ipgenerate'] in ('True', 'true', 'Yes', 'yes', '1'): # and not profile['randomip']
             self.log('Randomly generating static ip with base ' + profile['ip'] + ' and subnet ' + profile['netmask'])
             profile['ip'] = self._generate_ip(profile['ip'], profile['netmask'], self.getInterface())
